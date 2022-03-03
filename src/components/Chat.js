@@ -6,7 +6,7 @@ import { MdSend } from "react-icons/md";
 function Chat() {
   const chatHistory = localStorage.getItem("chat")
     ? JSON.parse(localStorage.getItem("chat"))
-    : [];
+    : ["hi"];
   const [input, setInput] = useState("");
   const [text, setText] = useState(chatHistory);
 
