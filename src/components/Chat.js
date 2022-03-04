@@ -6,23 +6,23 @@ import { MdSend } from "react-icons/md";
 function Chat() {
   const chatHistory = localStorage.getItem("chat")
     ? JSON.parse(localStorage.getItem("chat"))
-    : ["hi"];
+    : [];
   const [input, setInput] = useState("");
   const [text, setText] = useState(chatHistory);
 
-  //   const currentdate = new Date();
-  //   const currentTime =
-  //     currentdate.getDate() +
-  //     "/" +
-  //     (currentdate.getMonth() + 1) +
-  //     "/" +
-  //     currentdate.getFullYear() +
-  //     "  " +
-  //     currentdate.getHours() +
-  //     ":" +
-  //     currentdate.getMinutes() +
-  //     ":" +
-  //     currentdate.getSeconds();
+  const currentdate = new Date();
+  const currentTime =
+    currentdate.getDate() +
+    "/" +
+    (currentdate.getMonth() + 1) +
+    "/" +
+    currentdate.getFullYear() +
+    "  " +
+    currentdate.getHours() +
+    ":" +
+    currentdate.getMinutes() +
+    ":" +
+    currentdate.getSeconds();
 
   function inputHandler(e) {
     setInput(e.target.value);
@@ -30,10 +30,12 @@ function Chat() {
 
   function addText() {
     if (input) {
-      setText(() => [...text, input]);
+      setText(() => [...text, { input, currentTime }]);
       setInput("");
     }
   }
+
+  console.log(text);
 
   //   localStorage.clear();
   useEffect(() => localStorage.setItem("chat", JSON.stringify(text)));
@@ -48,11 +50,13 @@ function Chat() {
         {text.length > 0
           ? text.map((item, ind) => (
               <div className="chat-content" key={ind}>
-                <p className="user-text">{item}</p>
-                {/* <sub>{currentTime}</sub> */}
+                <sub>{item.currentTime}</sub>
+                <div className="user-text">
+                  <p>{item.input}</p>
+                </div>
                 <div className="bot-text">
                   <FaRobot size="2rem" color="red" />
-                  <p>{item}</p>
+                  <p>{item.input}</p>
                 </div>
               </div>
             ))
